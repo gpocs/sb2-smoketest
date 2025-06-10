@@ -1,0 +1,19 @@
+# Spring boot 2 smoke test
+
+```sh
+mvn clean package && \
+docker rmi alainpham/sb2-smoketest && \
+docker build . -t alainpham/sb2-smoketest && \
+docker push alainpham/sb2-smoketest
+
+docker run --rm --net primenet \
+    -p 8080:8080 \
+    -p 8081:8081 \
+    -e OTEL_JAVAAGENT_ENABLED="true" \
+    --name sb2-smoketest alainpham/sb2-smoketest
+
+docker push alainpham/sb2-smoketest
+
+curl http://localhost:8080/
+
+```

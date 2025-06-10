@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sb2-smoketest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sb2-smoketest
+  template:
+    metadata:
+      labels:
+        app: sb2-smoketest
+    spec:
+      containers:
+      - name: sb2-smoketest
+        image: alainpham/sb2-smoketest:latest
+        imagePullPolicy: "Always"
+        env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          - name: APPLICATION_NAME
+            value: sb2-smoketest
+          - name: OTEL_EXPORTER_OTLP_ENDPOINT
+            value: http://grafana-k8s-monitoring-alloy-receiver.default.svc.cluster.local:4318
+          - name: OTEL_JAVAAGENT_ENABLED
+            value: "true"
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: "service.name=sb2-smoketest,service.namespace=$(POD_NAMESPACE),service.instance.id=$(POD_NAME),service.version=1.0.0"
+        ports:
+          - containerPort: 8080
+          - containerPort: 8081
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8081
+          initialDelaySeconds: 0
+          successThreshold: 1
+          periodSeconds: 10
+          failureThreshold: 40 
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8081
+          initialDelaySeconds: 0
+          successThreshold: 1
+          periodSeconds: 10
+          failureThreshold: 40 
