@@ -17,3 +17,9 @@ docker push alainpham/sb2-smoketest
 curl http://localhost:8080/
 
 ```
+
+Kube deploy
+
+```sh
+kubectl apply -f https://raw.githubusercontent.com/gpocs/sb2-smoketest/refs/heads/master/k8s-deployment.yaml
+```
