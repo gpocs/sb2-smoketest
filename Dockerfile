@@ -4,7 +4,7 @@ USER root
 
 WORKDIR /deployments
 
-COPY opentelemetry-javaagent-2.16.0.jar /opt/opentelemetry-javaagent.jar
+COPY grafana-opentelemetry-java.jar /opt/opentelemetry-javaagent.jar
 
 ENV JAVA_TOOL_OPTIONS=-javaagent:/opt/opentelemetry-javaagent.jar \
     OTEL_JAVAAGENT_ENABLED=false \
