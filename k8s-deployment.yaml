@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: sb2-smoketest
-        image: alainpham/sb2-smoketest:latest
+        image: alainpham/sb2-smoketest:1.0.0
         imagePullPolicy: "Always"
         env:
           - name: POD_NAME
