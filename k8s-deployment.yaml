@@ -11,11 +11,7 @@ spec:
     metadata:
       annotations:
         resource.opentelemetry.io/service.name: "sb2-smoketest"
-        resource.opentlemetry.io/service.namespace: "apps"
         profiles.grafana.com/java.enabled: "true"
-        profiles.grafana.com/inject-java: "true"
-        service.name: "sb2-smoketest"
-        service.namespace: "apps"
       labels:
         app: sb2-smoketest
     spec:
