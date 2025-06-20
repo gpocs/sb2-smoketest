@@ -2,9 +2,9 @@
 
 ```sh
 mvn clean package && \
-docker rmi alainpham/sb2-smoketest:1.0.0 && \
-docker build . -t alainpham/sb2-smoketest:1.0.0 && \
-docker push alainpham/sb2-smoketest:1.0.0
+docker rmi alainpham/sb2-smoketest:1.0.1 ; \
+docker build . -t alainpham/sb2-smoketest:1.0.1 && \
+docker push alainpham/sb2-smoketest:1.0.1
 
 docker run --rm --net primenet \
     -p 8080:8080 \
